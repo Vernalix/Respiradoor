@@ -10,29 +10,30 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from the client folder
 app.use(express.static(path.join(__dirname, 'client')));
 
-// Default route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
 
-// Store connected players
 let players = [];
 
-// Socket.io connection
 io.on('connection', (socket) => {
     console.log('New player connected:', socket.id);
 
-    // When a player joins
-    socket.on('joinGame', (playerName) => {
-        players.push({ id: socket.id, name: playerName });
+    // Player joins
+    socket.on('joinGame', (player) => {
+        players.push({ id: socket.id, ...player });
         io.emit('updatePlayers', players);
         console.log(players);
     });
 
-    // When a player disconnects
+    // Game starts
+    socket.on('gameStart', () => {
+        io.emit('gameStart');
+    });
+
+    // Player disconnects
     socket.on('disconnect', () => {
         players = players.filter(p => p.id !== socket.id);
         io.emit('updatePlayers', players);
@@ -40,8 +41,6 @@ io.on('connection', (socket) => {
     });
 });
 
-// Start server
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
