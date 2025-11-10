@@ -74,3 +74,19 @@ button:hover {
 .hat.cap::before {
     content: "🧢";
 }
+#gameplayRoom {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    background: url('map.png') center/cover no-repeat;
+    display: block;
+}
+
