@@ -15,23 +15,37 @@ app.get('/', (req,res) => {
 });
 
 let players = [];
+let hostId = null;
 
-// Socket.io connections
 io.on('connection', (socket) => {
     console.log('Player connected:', socket.id);
 
     socket.on('joinGame', (player) => {
         players.push({ id: socket.id, ...player });
-        io.emit('updatePlayers', players);
 
-        // Start the game automatically when enough players joined (example: 2)
-        if(players.length >= 2){
+        // Assign first player as host
+        if (!hostId) {
+            hostId = socket.id;
+            io.to(hostId).emit('youAreHost');
+            console.log('Host assigned:', hostId);
+        }
+
+        io.emit('updatePlayers', players);
+    });
+
+    socket.on('startGame', () => {
+        if (socket.id === hostId) {
             io.emit('gameStart', players);
+            console.log('Game started by host!');
         }
     });
 
     socket.on('disconnect', () => {
         players = players.filter(p => p.id !== socket.id);
+        if (socket.id === hostId) {
+            hostId = players.length ? players[0].id : null;
+            if (hostId) io.to(hostId).emit('youAreHost');
+        }
         io.emit('updatePlayers', players);
         console.log('Player disconnected:', socket.id);
     });
