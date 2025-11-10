@@ -88,5 +88,45 @@ socket.on('gameStart', (playersInGame) => {
         div.appendChild(nameSpan);
 
         gamePlayersDiv.appendChild(div);
+
+        const enterGameplayButton = document.getElementById('enterGameplayButton');
+
+socket.on('gameStart', (playersInGame) => {
+    lobbyDiv.style.display = 'none';
+    gameRoomDiv.style.display = 'block';
+
+    gamePlayersDiv.innerHTML = '';
+    playersInGame.forEach(player => {
+        const div = document.createElement('div');
+        div.classList.add('player-card');
+        div.style.backgroundColor = player.color;
+        if (player.hat !== 'none') {
+            const hat = document.createElement('span');
+            hat.classList.add('hat', player.hat);
+            div.appendChild(hat);
+        }
+        const name = document.createElement('span');
+        name.textContent = player.name;
+        div.appendChild(name);
+        gamePlayersDiv.appendChild(div);
+    });
+
+    // Only host can start gameplay
+    if (isHost) {
+        enterGameplayButton.style.display = 'inline-block';
+    }
+});
+
+// Host decides to enter actual gameplay
+enterGameplayButton.addEventListener('click', () => {
+    socket.emit('startGameplay');
+});
+
+// When server says start gameplay
+socket.on('gameplayStart', () => {
+    gameRoomDiv.style.display = 'none';
+    document.getElementById('gameplayRoom').style.display = 'block';
+});
+
     });
 });
