@@ -1,73 +1,83 @@
-// lobby.js
 const socket = io();
 
-// Elements
 const joinButton = document.getElementById('joinButton');
 const playerNameInput = document.getElementById('playerName');
 const playerColorInput = document.getElementById('playerColor');
-const playerList = document.getElementById('playerList');
-const timerText = document.getElementById('timerText');
+const playerHatInput = document.getElementById('playerHat');
+
 const lobbyDiv = document.getElementById('lobby');
-const gameArea = document.getElementById('gameArea');
+const gameRoomDiv = document.getElementById('gameRoom');
+
+const playerListDiv = document.getElementById('playerList');
+const gamePlayersDiv = document.getElementById('gamePlayers');
 
 let playerData = {};
 
-// Join Lobby
+// Join Game
 joinButton.addEventListener('click', () => {
     const name = playerNameInput.value.trim();
     const color = playerColorInput.value;
+    const hat = playerHatInput.value;
 
-    if (!name) {
-        alert("Please enter your name!");
-        return;
-    }
+    if(!name) return alert("Enter your name!");
 
-    playerData = { name, color };
+    playerData = { name, color, hat };
     socket.emit('joinGame', playerData);
 
+    // Disable inputs
     joinButton.disabled = true;
     playerNameInput.disabled = true;
     playerColorInput.disabled = true;
+    playerHatInput.disabled = true;
 });
 
-// Update Player List
+// Update Lobby Player List
 socket.on('updatePlayers', (players) => {
-    playerList.innerHTML = '';
+    playerListDiv.innerHTML = '';
     players.forEach(player => {
-        const li = document.createElement('li');
-        li.textContent = player.name;
-        li.style.color = player.color;
-        playerList.appendChild(li);
-    });
+        const div = document.createElement('div');
+        div.classList.add('player-card');
+        div.style.backgroundColor = player.color;
 
-    // Start timer when enough players (example: 2)
-    if(players.length >= 2) {
-        startCountdown(5); // 5-second countdown
-    }
+        // Hat display
+        if(player.hat !== 'none'){
+            const hatSpan = document.createElement('span');
+            hatSpan.classList.add('hat');
+            hatSpan.textContent = '🎩';
+            div.appendChild(hatSpan);
+        }
+
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = player.name;
+        div.appendChild(nameSpan);
+
+        playerListDiv.appendChild(div);
+    });
 });
 
-// Countdown Timer
-let countdownInterval;
-function startCountdown(seconds) {
-    clearInterval(countdownInterval);
-    timerText.textContent = `Game starts in ${seconds} seconds...`;
-
-    countdownInterval = setInterval(() => {
-        seconds--;
-        if(seconds > 0){
-            timerText.textContent = `Game starts in ${seconds} seconds...`;
-        } else {
-            clearInterval(countdownInterval);
-            timerText.textContent = "Game Started!";
-            lobbyDiv.style.display = 'none';
-            gameArea.style.display = 'block';
-            socket.emit('gameStart');
-        }
-    }, 1000);
-}
-
-// Game start event (optional logic for future)
-socket.on('gameStart', () => {
+// Listen for Game Start (enter separate room)
+socket.on('gameStart', (playersInGame) => {
     lobbyDiv.style.display = 'none';
-    gameArea.style.display = 'block';
+    gameRoomDiv.style.display = 'block';
+
+    // Show players in game room
+    gamePlayersDiv.innerHTML = '';
+    playersInGame.forEach(player => {
+        const div = document.createElement('div');
+        div.classList.add('player-card');
+        div.style.backgroundColor = player.color;
+
+        if(player.hat !== 'none'){
+            const hatSpan = document.createElement('span');
+            hatSpan.classList.add('hat');
+            hatSpan.textContent = '🎩';
+            div.appendChild(hatSpan);
+        }
+
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = player.name;
+        div.appendChild(nameSpan);
+
+        gamePlayersDiv.appendChild(div);
+    });
 });
