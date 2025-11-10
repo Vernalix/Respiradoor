@@ -12,14 +12,12 @@
     </header>
 
     <main>
-        <!-- Lobby UI -->
+        <!-- Lobby -->
         <div id="lobby">
             <label for="playerName">Enter your name:</label>
             <input type="text" id="playerName" placeholder="Your Name">
-
             <label for="playerColor">Choose a color:</label>
             <input type="color" id="playerColor" value="#4CAF50">
-
             <label for="playerHat">Choose a hat:</label>
             <select id="playerHat">
                 <option value="none">None</option>
@@ -27,29 +25,30 @@
                 <option value="crown">Crown</option>
                 <option value="cap">Cap</option>
             </select>
-
             <button id="joinButton">Join Lobby</button>
-
-            <!-- Host-only Start Button -->
             <button id="startGameButton" style="display:none;">Start Game</button>
 
             <h2>Players in Lobby:</h2>
             <div id="playerList" class="player-list"></div>
         </div>
 
-        <!-- Game Room UI -->
+        <!-- Game Room -->
         <div id="gameRoom" style="display:none;">
             <h2>Game Room</h2>
             <div id="gamePlayers" class="player-list"></div>
-            <p>Game has started! Gameplay goes here.</p>
+            <button id="enterGameplayButton" style="display:none;">Enter Gameplay</button>
+        </div>
+
+        <!-- Gameplay Room -->
+        <div id="gameplayRoom" style="display:none;">
+            <canvas id="gameCanvas"></canvas>
         </div>
     </main>
 
-    <footer>
-        <p>Respiradoor © 2025</p>
-    </footer>
+    <footer><p>Respiradoor © 2025</p></footer>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="lobby.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
