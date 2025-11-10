@@ -24,6 +24,15 @@ input, select, button {
 
 button {
     cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 .player-list {
@@ -48,9 +57,20 @@ button {
     position: relative;
 }
 
-/* Hat indicators */
+/* Hats */
 .player-card .hat {
     position: absolute;
-    top: -10px;
-    font-size: 20px;
+    top: -25px;
+    font-size: 22px;
+}
+
+/* Different hat styles (emoji icons) */
+.hat.wizard::before {
+    content: "🧙‍♂️";
+}
+.hat.crown::before {
+    content: "👑";
+}
+.hat.cap::before {
+    content: "🧢";
 }
