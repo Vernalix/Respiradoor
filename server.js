@@ -10,12 +10,18 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from client folder
+// Serve static files from the client folder
 app.use(express.static(path.join(__dirname, 'client')));
+
+// Default route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'index.html'));
+});
 
 // Store connected players
 let players = [];
 
+// Socket.io connection
 io.on('connection', (socket) => {
     console.log('New player connected:', socket.id);
 
