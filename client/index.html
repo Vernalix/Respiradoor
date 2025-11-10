@@ -1,54 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respiradoor</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Respiradoor</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Respiradoor</h1>
-    </header>
+  <header><h1>Respiradoor</h1></header>
 
-    <main>
-        <!-- Lobby -->
-        <div id="lobby">
-            <label for="playerName">Enter your name:</label>
-            <input type="text" id="playerName" placeholder="Your Name">
-            <label for="playerColor">Choose a color:</label>
-            <input type="color" id="playerColor" value="#4CAF50">
-            <label for="playerHat">Choose a hat:</label>
-            <select id="playerHat">
-                <option value="none">None</option>
-                <option value="wizard">Wizard</option>
-                <option value="crown">Crown</option>
-                <option value="cap">Cap</option>
-            </select>
-            <button id="joinButton">Join Lobby</button>
-            <button id="startGameButton" style="display:none;">Start Game</button>
+  <main>
+    <!-- LOBBY CUSTOMIZATION -->
+    <div id="lobby">
+      <h2>Customize Your Character</h2>
+      <label for="playerName">Name:</label>
+      <input type="text" id="playerName" placeholder="Your Name">
 
-            <h2>Players in Lobby:</h2>
-            <div id="playerList" class="player-list"></div>
-        </div>
+      <label for="playerColor">Color:</label>
+      <input type="color" id="playerColor" value="#4CAF50">
 
-        <!-- Game Room -->
-        <div id="gameRoom" style="display:none;">
-            <h2>Game Room</h2>
-            <div id="gamePlayers" class="player-list"></div>
-            <button id="enterGameplayButton" style="display:none;">Enter Gameplay</button>
-        </div>
+      <label for="playerShape">Shape:</label>
+      <select id="playerShape">
+        <option value="circle">Circle</option>
+        <option value="square">Square</option>
+        <option value="triangle">Triangle</option>
+        <option value="star">Star</option>
+      </select>
 
-        <!-- Gameplay Room -->
-        <div id="gameplayRoom" style="display:none;">
-            <canvas id="gameCanvas"></canvas>
-        </div>
-    </main>
+      <label for="playerHat">Hat:</label>
+      <select id="playerHat">
+        <option value="none">None</option>
+        <option value="wizard">Wizard</option>
+        <option value="crown">Crown</option>
+        <option value="cap">Cap</option>
+      </select>
 
-    <footer><p>Respiradoor © 2025</p></footer>
+      <div id="previewContainer">
+        <h3>Preview:</h3>
+        <canvas id="previewCanvas" width="120" height="120"></canvas>
+      </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="lobby.js"></script>
-    <script src="game.js"></script>
+      <button id="joinButton">Join Lobby</button>
+      <button id="startGameButton" style="display:none;">Start Game</button>
+
+      <h2>Players in Lobby:</h2>
+      <div id="playerList" class="player-list"></div>
+    </div>
+
+    <!-- GAME ROOM -->
+    <div id="gameRoom" style="display:none;">
+      <h2>Game Room</h2>
+      <div id="gamePlayers" class="player-list"></div>
+      <button id="enterGameplayButton" style="display:none;">Enter Gameplay</button>
+    </div>
+
+    <!-- GAMEPLAY -->
+    <div id="gameplayRoom" style="display:none;">
+      <canvas id="gameCanvas"></canvas>
+    </div>
+  </main>
+
+  <footer><p>Respiradoor © 2025</p></footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="lobby.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
