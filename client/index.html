@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Respiradoor</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respiradoor Lobby</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <h1>Respiradoor Multiplayer Lobby</h1>
+    </header>
 
-  <!-- Title -->
-  <h1 id="game-title">Respiradoor</h1>
+    <main>
+        <div id="lobby">
+            <label for="playerName">Enter your name:</label>
+            <input type="text" id="playerName" placeholder="Your Name">
 
-  <!-- Name Input -->
-  <div class="name-section">
-    <label for="player-name">Enter your name:</label><br>
-    <input type="text" id="player-name" placeholder="Type your name...">
-  </div>
+            <label for="playerColor">Choose a color:</label>
+            <input type="color" id="playerColor" value="#4CAF50">
 
-  <!-- Player Customization -->
-  <div class="customization">
-    <!-- Circle placeholder (player shape) -->
-    <div class="player-circle"></div>
+            <button id="joinButton">Join Lobby</button>
 
-    <!-- Accessories area -->
-    <div class="accessories">
-      <p>Select an accessory:</p>
-      <button class="hat-btn">🎩 Hat</button>
-      <button class="cap-btn">🧢 Cap</button>
-      <button class="none-btn">🚫 None</button>
-    </div>
-  </div>
+            <h2>Players in Lobby:</h2>
+            <ul id="playerList"></ul>
 
-  <!-- Continue Button -->
-  <button id="continue-btn">Continue</button>
+            <div id="timerContainer">
+                <p id="timerText">Waiting for players...</p>
+            </div>
+        </div>
 
-  <script src="script.js"></script>
-  <!-- At the bottom of body, before </body> -->
-<script src="/socket.io/socket.io.js"></script>
-<script src="lobby.js"></script>
-<script src="customization.js"></script>
+        <div id="gameArea" style="display:none;">
+            <h2>Game Started!</h2>
+            <p>Here is where the gameplay will begin.</p>
+        </div>
+    </main>
 
+    <footer>
+        <p>Respiradoor © 2025</p>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="lobby.js"></script>
 </body>
 </html>
-
