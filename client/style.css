@@ -1,75 +1,46 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f0f8ff;
+  background: linear-gradient(135deg, #64b3f4, #c2e59c);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
-  padding: 0;
 }
 
-header {
-  background-color: #4CAF50;
-  color: white;
-  padding: 20px 0;
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
-main {
-  margin: 30px;
-}
-
-input, select, button {
+input {
+  margin: 10px;
   padding: 10px;
-  margin: 5px;
-  font-size: 16px;
+  width: 80%;
+  border-radius: 10px;
+  border: 1px solid #aaa;
 }
 
 button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #0078ff;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.player-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 15px;
+button:hover {
+  background: #005fcc;
 }
 
-.player-card {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-weight: bold;
-  color: white;
-  position: relative;
-}
-
-.hat {
-  position: absolute;
-  top: -12px;
-  font-size: 20px;
-}
-
-#previewContainer {
-  margin: 15px auto;
-  text-align: center;
-}
-
-#previewCanvas {
-  background: #f4f4f4;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-}
-
-/* Gameplay Map Background */
-#gameCanvas {
-  width: 100%;
-  height: 100vh;
-  display: block;
-  background-size: cover;
-  background-position: center;
+ul {
+  list-style: none;
+  padding: 0;
 }
