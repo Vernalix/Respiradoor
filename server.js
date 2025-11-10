@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -11,29 +10,26 @@ const io = new Server(server);
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'client')));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'index.html'));
+app.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname,'client','index.html'));
 });
 
 let players = [];
 
+// Socket.io connections
 io.on('connection', (socket) => {
-    console.log('New player connected:', socket.id);
+    console.log('Player connected:', socket.id);
 
-    // Player joins
     socket.on('joinGame', (player) => {
         players.push({ id: socket.id, ...player });
         io.emit('updatePlayers', players);
-        console.log(players);
+
+        // Start the game automatically when enough players joined (example: 2)
+        if(players.length >= 2){
+            io.emit('gameStart', players);
+        }
     });
 
-    // Game starts
-    socket.on('gameStart', () => {
-        io.emit('gameStart');
-    });
-
-    // Player disconnects
     socket.on('disconnect', () => {
         players = players.filter(p => p.id !== socket.id);
         io.emit('updatePlayers', players);
@@ -41,6 +37,4 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
