@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respiradoor Lobby</title>
+    <title>Respiradoor</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Respiradoor Multiplayer Lobby</h1>
+        <h1>Respiradoor</h1>
     </header>
 
     <main>
@@ -28,7 +28,10 @@
                 <option value="cap">Cap</option>
             </select>
 
-            <button id="joinButton">Join Game</button>
+            <button id="joinButton">Join Lobby</button>
+
+            <!-- Host-only Start Button -->
+            <button id="startGameButton" style="display:none;">Start Game</button>
 
             <h2>Players in Lobby:</h2>
             <div id="playerList" class="player-list"></div>
@@ -38,7 +41,7 @@
         <div id="gameRoom" style="display:none;">
             <h2>Game Room</h2>
             <div id="gamePlayers" class="player-list"></div>
-            <p>Game has started! Implement your gameplay here.</p>
+            <p>Game has started! Gameplay goes here.</p>
         </div>
     </main>
 
