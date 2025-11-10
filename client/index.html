@@ -12,6 +12,7 @@
     </header>
 
     <main>
+        <!-- Lobby UI -->
         <div id="lobby">
             <label for="playerName">Enter your name:</label>
             <input type="text" id="playerName" placeholder="Your Name">
@@ -19,19 +20,25 @@
             <label for="playerColor">Choose a color:</label>
             <input type="color" id="playerColor" value="#4CAF50">
 
-            <button id="joinButton">Join Lobby</button>
+            <label for="playerHat">Choose a hat:</label>
+            <select id="playerHat">
+                <option value="none">None</option>
+                <option value="wizard">Wizard</option>
+                <option value="crown">Crown</option>
+                <option value="cap">Cap</option>
+            </select>
+
+            <button id="joinButton">Join Game</button>
 
             <h2>Players in Lobby:</h2>
-            <ul id="playerList"></ul>
-
-            <div id="timerContainer">
-                <p id="timerText">Waiting for players...</p>
-            </div>
+            <div id="playerList" class="player-list"></div>
         </div>
 
-        <div id="gameArea" style="display:none;">
-            <h2>Game Started!</h2>
-            <p>Here is where the gameplay will begin.</p>
+        <!-- Game Room UI -->
+        <div id="gameRoom" style="display:none;">
+            <h2>Game Room</h2>
+            <div id="gamePlayers" class="player-list"></div>
+            <p>Game has started! Implement your gameplay here.</p>
         </div>
     </main>
 
