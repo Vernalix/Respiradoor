@@ -1,92 +1,75 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f8ff;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f8ff;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 20px 0;
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 0;
 }
 
 main {
-    margin: 30px;
+  margin: 30px;
 }
 
 input, select, button {
-    padding: 10px;
-    margin: 5px;
-    font-size: 16px;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
 }
 
 button {
-    cursor: pointer;
-    border: none;
-    border-radius: 8px;
-    background-color: #4CAF50;
-    color: white;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
+  cursor: pointer;
 }
 
 .player-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
 }
 
 .player-card {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    font-weight: bold;
-    color: white;
-    position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: bold;
+  color: white;
+  position: relative;
 }
 
-/* Hats */
-.player-card .hat {
-    position: absolute;
-    top: -25px;
-    font-size: 22px;
+.hat {
+  position: absolute;
+  top: -12px;
+  font-size: 20px;
 }
 
-/* Different hat styles (emoji icons) */
-.hat.wizard::before {
-    content: "🧙‍♂️";
-}
-.hat.crown::before {
-    content: "👑";
-}
-.hat.cap::before {
-    content: "🧢";
-}
-#gameplayRoom {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
+#previewContainer {
+  margin: 15px auto;
+  text-align: center;
 }
 
+#previewCanvas {
+  background: #f4f4f4;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+
+/* Gameplay Map Background */
 #gameCanvas {
-    width: 100%;
-    height: 100%;
-    background: url('map.png') center/cover no-repeat;
-    display: block;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  background-size: cover;
+  background-position: center;
 }
-
