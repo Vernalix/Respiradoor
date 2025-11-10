@@ -6,7 +6,6 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
 const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'client')));
@@ -18,26 +17,23 @@ let players = [];
 let hostId = null;
 
 io.on('connection', (socket) => {
-    console.log('Player connected:', socket.id);
-
     socket.on('joinGame', (player) => {
         players.push({ id: socket.id, ...player });
 
-        // Assign first player as host
         if (!hostId) {
             hostId = socket.id;
             io.to(hostId).emit('youAreHost');
-            console.log('Host assigned:', hostId);
         }
 
         io.emit('updatePlayers', players);
     });
 
     socket.on('startGame', () => {
-        if (socket.id === hostId) {
-            io.emit('gameStart', players);
-            console.log('Game started by host!');
-        }
+        if (socket.id === hostId) io.emit('gameStart', players);
+    });
+
+    socket.on('startGameplay', () => {
+        if (socket.id === hostId) io.emit('gameplayStart');
     });
 
     socket.on('disconnect', () => {
@@ -47,7 +43,6 @@ io.on('connection', (socket) => {
             if (hostId) io.to(hostId).emit('youAreHost');
         }
         io.emit('updatePlayers', players);
-        console.log('Player disconnected:', socket.id);
     });
 });
 
