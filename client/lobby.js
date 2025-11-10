@@ -1,6 +1,7 @@
 const socket = io();
 
 const joinButton = document.getElementById('joinButton');
+const startButton = document.getElementById('startGameButton');
 const playerNameInput = document.getElementById('playerName');
 const playerColorInput = document.getElementById('playerColor');
 const playerHatInput = document.getElementById('playerHat');
@@ -12,8 +13,9 @@ const playerListDiv = document.getElementById('playerList');
 const gamePlayersDiv = document.getElementById('gamePlayers');
 
 let playerData = {};
+let isHost = false;
 
-// Join Game
+// Join Lobby
 joinButton.addEventListener('click', () => {
     const name = playerNameInput.value.trim();
     const color = playerColorInput.value;
@@ -23,27 +25,20 @@ joinButton.addEventListener('click', () => {
 
     playerData = { name, color, hat };
     socket.emit('joinGame', playerData);
-
-    // Disable inputs
-    joinButton.disabled = true;
-    playerNameInput.disabled = true;
-    playerColorInput.disabled = true;
-    playerHatInput.disabled = true;
 });
 
-// Update Lobby Player List
+// Update Player List
 socket.on('updatePlayers', (players) => {
     playerListDiv.innerHTML = '';
+
     players.forEach(player => {
         const div = document.createElement('div');
         div.classList.add('player-card');
         div.style.backgroundColor = player.color;
 
-        // Hat display
         if(player.hat !== 'none'){
             const hatSpan = document.createElement('span');
-            hatSpan.classList.add('hat');
-            hatSpan.textContent = '🎩';
+            hatSpan.classList.add('hat', player.hat);
             div.appendChild(hatSpan);
         }
 
@@ -53,14 +48,29 @@ socket.on('updatePlayers', (players) => {
 
         playerListDiv.appendChild(div);
     });
+
+    // Host-only Start Button (first player = host)
+    if(isHost) {
+        startButton.style.display = 'inline-block';
+    }
 });
 
-// Listen for Game Start (enter separate room)
+// When assigned host
+socket.on('youAreHost', () => {
+    isHost = true;
+    startButton.style.display = 'inline-block';
+});
+
+// Start Game
+startButton.addEventListener('click', () => {
+    socket.emit('startGame');
+});
+
+// Enter game room when started
 socket.on('gameStart', (playersInGame) => {
     lobbyDiv.style.display = 'none';
     gameRoomDiv.style.display = 'block';
 
-    // Show players in game room
     gamePlayersDiv.innerHTML = '';
     playersInGame.forEach(player => {
         const div = document.createElement('div');
@@ -69,8 +79,7 @@ socket.on('gameStart', (playersInGame) => {
 
         if(player.hat !== 'none'){
             const hatSpan = document.createElement('span');
-            hatSpan.classList.add('hat');
-            hatSpan.textContent = '🎩';
+            hatSpan.classList.add('hat', player.hat);
             div.appendChild(hatSpan);
         }
 
