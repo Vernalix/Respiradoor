@@ -1,69 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Respiradoor</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header><h1>Respiradoor</h1></header>
-
-  <main>
-    <!-- LOBBY CUSTOMIZATION -->
-    <div id="lobby">
-      <h2>Customize Your Character</h2>
-      <label for="playerName">Name:</label>
-      <input type="text" id="playerName" placeholder="Your Name">
-
-      <label for="playerColor">Color:</label>
-      <input type="color" id="playerColor" value="#4CAF50">
-
-      <label for="playerShape">Shape:</label>
-      <select id="playerShape">
-        <option value="circle">Circle</option>
-        <option value="square">Square</option>
-        <option value="triangle">Triangle</option>
-        <option value="star">Star</option>
-      </select>
-
-      <label for="playerHat">Hat:</label>
-      <select id="playerHat">
-        <option value="none">None</option>
-        <option value="wizard">Wizard</option>
-        <option value="crown">Crown</option>
-        <option value="cap">Cap</option>
-      </select>
-
-      <div id="previewContainer">
-        <h3>Preview:</h3>
-        <canvas id="previewCanvas" width="120" height="120"></canvas>
-      </div>
-
-      <button id="joinButton">Join Lobby</button>
-      <button id="startGameButton" style="display:none;">Start Game</button>
-
-      <h2>Players in Lobby:</h2>
-      <div id="playerList" class="player-list"></div>
+  <div class="container">
+    <h1>Respiradoor</h1>
+    <input id="username" placeholder="Enter your name" />
+    <div>
+      <button id="createRoom">Create Room</button>
+      <input id="roomCode" placeholder="Room Code" />
+      <button id="joinRoom">Join Room</button>
     </div>
-
-    <!-- GAME ROOM -->
-    <div id="gameRoom" style="display:none;">
-      <h2>Game Room</h2>
-      <div id="gamePlayers" class="player-list"></div>
-      <button id="enterGameplayButton" style="display:none;">Enter Gameplay</button>
-    </div>
-
-    <!-- GAMEPLAY -->
-    <div id="gameplayRoom" style="display:none;">
-      <canvas id="gameCanvas"></canvas>
-    </div>
-  </main>
-
-  <footer><p>Respiradoor © 2025</p></footer>
+  </div>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="lobby.js"></script>
-  <script src="game.js"></script>
+  <script src="client.js"></script>
 </body>
 </html>
